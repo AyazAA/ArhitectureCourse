@@ -1,4 +1,5 @@
 ﻿using Assets.CodeBase.Infrasstructure;
+using Assets.CodeBase.Infrasstructure.Services;
 using Assets.CodeBase.Services.Input;
 using CodeBase.CameraLogic;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace CodeBase.Hero
 
         private void Awake()
         {
-            _inputService = Game.InputService;
+            _inputService = AllServices.Container.Single<IInputService>();
         }
 
         private void Start()
