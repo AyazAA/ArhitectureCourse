@@ -1,8 +1,8 @@
-﻿using Assets.CodeBase.Infrasstructure.Services;
-using Assets.CodeBase.Infrasstructure.States;
+﻿using CodeBase.Infrasstructure.Services;
+using CodeBase.Infrasstructure.States;
 using CodeBase.Logic;
 
-namespace Assets.CodeBase.Infrasstructure
+namespace CodeBase.Infrasstructure
 {
     public class Game
     {

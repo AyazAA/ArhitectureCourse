@@ -1,7 +1,6 @@
-using Assets.CodeBase.Infrasstructure.Services;
 using UnityEngine;
 
-namespace Assets.CodeBase.Services.Input
+namespace CodeBase.Infrasstructure.Services.Input
 {
     public interface IInputService : IService
     {

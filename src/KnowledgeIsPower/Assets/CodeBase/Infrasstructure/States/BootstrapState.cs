@@ -1,10 +1,12 @@
-﻿using Assets.CodeBase.Infrasstructure.AssetManagement;
-using Assets.CodeBase.Infrasstructure.Factory;
-using Assets.CodeBase.Infrasstructure.Services;
-using Assets.CodeBase.Services.Input;
+﻿using CodeBase.Infrasstructure.AssetManagement;
+using CodeBase.Infrasstructure.Factory;
+using CodeBase.Infrasstructure.Services;
+using CodeBase.Infrasstructure.Services.Input;
+using CodeBase.Infrasstructure.Services.PersistentProgress;
+using CodeBase.Infrasstructure.Services.SaveLoad;
 using UnityEngine;
 
-namespace Assets.CodeBase.Infrasstructure.States
+namespace CodeBase.Infrasstructure.States
 {
     public class BootstrapState : IState
     {
@@ -32,13 +34,15 @@ namespace Assets.CodeBase.Infrasstructure.States
         }
 
         private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadLevelState, string>("Main");
+            _stateMachine.Enter<LoadProgressState>();    
 
         private void RegisterServices() 
         {
             _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IAsset>(new AssetProvider());
+            _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
             _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAsset>()));
+            _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(), _services.Single<IGameFactory>()));
         }
 
         private static IInputService InputService()

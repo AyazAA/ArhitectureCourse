@@ -1,9 +1,10 @@
-﻿using Assets.CodeBase.Infrasstructure.Factory;
-using CodeBase.CameraLogic;
+﻿using CodeBase.CameraLogic;
+using CodeBase.Infrasstructure.Factory;
+using CodeBase.Infrasstructure.Services.PersistentProgress;
 using CodeBase.Logic;
 using UnityEngine;
 
-namespace Assets.CodeBase.Infrasstructure.States
+namespace CodeBase.Infrasstructure.States
 {
     public class LoadLevelState : IPayloadedState<string>
     {
@@ -11,19 +12,22 @@ namespace Assets.CodeBase.Infrasstructure.States
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _curtain;
-        private readonly IGameFactory _gameFactory; 
+        private readonly IGameFactory _gameFactory;
+        private readonly IPersistentProgressService _progressService;
 
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory)
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory, IPersistentProgressService progressService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _curtain = curtain;
             _gameFactory = gameFactory;
+            _progressService = progressService;
         }
 
         public void Enter(string sceneName)
         {
             _curtain.Show();
+            _gameFactory.Cleanup();
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
@@ -32,11 +36,22 @@ namespace Assets.CodeBase.Infrasstructure.States
 
         private void OnLoaded()
         {
+            InitGameWorld();
+            InformProgressReaders();
+            _stateMachine.Enter<GameLoopState>();
+        }
+
+        private void InitGameWorld()
+        {
             GameObject hero = _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
             _gameFactory.CreateHud();
             CameraFollowInit(hero);
+        }
 
-            _stateMachine.Enter<GameLoopState>();
+        private void InformProgressReaders()
+        {
+            foreach (ISavedProgressReader  progressReader in _gameFactory.ProgressReaders)
+                progressReader.LoadProgress(_progressService.Progress);
         }
 
         private void CameraFollowInit(GameObject target)
