@@ -19,7 +19,7 @@ namespace CodeBase.Enemy
       if (IsHeroExist())
         InitializeHeroTransform();
       else
-        _gameFactory.HeroCreated += HeroCreated;
+        _gameFactory.HeroCreated += HeroCreated;  
     }
 
     private void Update()

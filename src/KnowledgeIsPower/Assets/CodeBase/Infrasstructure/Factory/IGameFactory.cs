@@ -13,7 +13,7 @@ namespace CodeBase.Infrasstructure.Factory
         GameObject HeroGameObject { get; }
         event Action HeroCreated;
         public GameObject CreateHero(GameObject at);
-        public void CreateHud();
+        public GameObject CreateHud();
         void Cleanup();
     }
 }

@@ -25,9 +25,9 @@ TagManager:
   - 
   - Player
   - Aggro
-  - StopZone
+  - AttackZone
   - Hittable
-  - Pickup
+  - 
   - 
   - 
   - 

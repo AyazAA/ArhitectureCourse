@@ -30,7 +30,14 @@ namespace CodeBase.Infrasstructure.States
         private void LoadProgressOrInitNew() => 
             _progressService.Progress = _saveLoadService.LoadProgress() ?? NewProgress();
 
-        private PlayerProgress NewProgress() => 
-            new PlayerProgress("Main");
+        private PlayerProgress NewProgress()
+        {
+            var progress = new PlayerProgress("Main");
+            progress.HeroState.MaxHP = 50;
+            progress.HeroState.Reset();
+            progress.HeroStats.Damage = 1;
+            progress.HeroStats.Damage = 0.5f;
+            return progress;
+        }
     }
 }
