@@ -4,6 +4,7 @@ using CodeBase.Infrasstructure.Services;
 using CodeBase.Infrasstructure.Services.Input;
 using CodeBase.Infrasstructure.Services.PersistentProgress;
 using CodeBase.Infrasstructure.Services.SaveLoad;
+using CodeBase.StaticData;
 using UnityEngine;
 
 namespace CodeBase.Infrasstructure.States
@@ -38,11 +39,19 @@ namespace CodeBase.Infrasstructure.States
 
         private void RegisterServices() 
         {
+            RegisterStaticData();
             _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IAsset>(new AssetProvider());
             _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
-            _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAsset>()));
+            _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAsset>(), _services.Single<IStaticDataService>()));
             _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(), _services.Single<IGameFactory>()));
+        }
+
+        private void RegisterStaticData()
+        {
+            IStaticDataService staticData = new StaticDataService();
+            staticData.LoadMonsters();
+            _services.RegisterSingle(staticData);
         }
 
         private static IInputService InputService()
