@@ -7,5 +7,6 @@ namespace CodeBase.Data
     public class KillData
     {
         public List<string> ClearedSpawners = new List<string>();
+        public Dictionary<string, Vector3Data> SavedLoots = new Dictionary<string, Vector3Data>();
     }
 }

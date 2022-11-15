@@ -37,6 +37,7 @@ namespace CodeBase.Infrasstructure.States
             progress.HeroState.Reset();
             progress.HeroStats.Damage = 1;
             progress.HeroStats.DamageRadius = 0.5f;
+            progress.WorldData.LootData.Collected = 0;
             return progress;
         }
     }
