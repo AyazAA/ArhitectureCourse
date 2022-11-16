@@ -6,6 +6,7 @@ using CodeBase.Infrasstructure.AssetManagement;
 using CodeBase.Infrasstructure.Services;
 using CodeBase.Infrasstructure.Services.PersistentProgress;
 using CodeBase.Logic;
+using CodeBase.Logic.EnemySpawners;
 using CodeBase.Services.Randomizer;
 using CodeBase.StaticData;
 using CodeBase.UI;
@@ -43,6 +44,15 @@ namespace CodeBase.Infrasstructure.Factory
             GameObject hud = InstantiateRegistered(AssetPath.HudPath);
             hud.GetComponentInChildren<LootCounter>().Construct(_progressService.Progress.WorldData);
             return hud;
+        }
+
+        public void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId)
+        {
+             SpawnPoint spawner = InstantiateRegistered(AssetPath.Spawner, at)
+                 .GetComponent<SpawnPoint>();
+             spawner.Construct(this);
+             spawner.MonsterTypeId = monsterTypeId;
+             spawner.Id = spawnerId;
         }
 
         public GameObject CreateMonster(MonsterTypeId monsterTypeId, Transform parent)

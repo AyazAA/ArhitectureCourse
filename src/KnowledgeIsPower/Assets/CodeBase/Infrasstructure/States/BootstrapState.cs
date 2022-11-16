@@ -53,7 +53,7 @@ namespace CodeBase.Infrasstructure.States
         private void RegisterStaticData()
         {
             IStaticDataService staticData = new StaticDataService();
-            staticData.LoadMonsters();
+            staticData.Load();
             _services.RegisterSingle(staticData);
         }
 
