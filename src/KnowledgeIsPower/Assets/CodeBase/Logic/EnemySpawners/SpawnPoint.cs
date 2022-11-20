@@ -1,7 +1,7 @@
 ﻿using CodeBase.Data;
 using CodeBase.Enemy;
-using CodeBase.Infrasstructure.Factory;
-using CodeBase.Infrasstructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.StaticData;
 using UnityEngine;
 

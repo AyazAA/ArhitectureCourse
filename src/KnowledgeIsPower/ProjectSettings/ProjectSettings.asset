@@ -884,6 +884,7 @@ PlayerSettings:
   cloudServicesEnabled:
     Build: 1
     UNet: 1
+    Unity Ads: 1
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -897,11 +898,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 679d389d-2ccb-4383-bf53-ed47851e305d
+  cloudProjectId: 0b448483-8a70-4841-9956-39fc70c9634b
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: KnowledgeIsPower
-  organizationId: kate-3755722
+  organizationId: ayaz19
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

@@ -1,5 +1,3 @@
-using CodeBase.Infrasstructure.Factory;
-using CodeBase.Infrasstructure.Services;
 using UnityEngine;
 
 namespace CodeBase.Enemy

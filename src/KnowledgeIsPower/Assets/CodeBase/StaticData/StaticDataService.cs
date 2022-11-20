@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CodeBase.Infrasstructure.Services;
+using CodeBase.Infrastructure.Services;
 using CodeBase.StaticData.Windows;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;

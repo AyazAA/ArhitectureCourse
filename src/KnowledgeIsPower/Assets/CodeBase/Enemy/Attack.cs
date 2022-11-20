@@ -1,7 +1,5 @@
 ﻿using System.Linq;
 using CodeBase.Hero;
-using CodeBase.Infrasstructure.Factory;
-using CodeBase.Infrasstructure.Services;
 using CodeBase.Logic;
 using UnityEngine;
 
