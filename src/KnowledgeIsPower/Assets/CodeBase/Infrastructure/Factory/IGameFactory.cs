@@ -11,7 +11,7 @@ namespace CodeBase.Infrastructure.Factory
     {
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
-        public GameObject CreateHero(GameObject at);
+        public GameObject CreateHero(Vector3 at);
         public GameObject CreateHud();
         void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId);
         void Cleanup();

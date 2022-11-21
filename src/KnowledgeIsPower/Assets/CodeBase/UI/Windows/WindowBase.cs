@@ -15,7 +15,7 @@ namespace CodeBase.UI.Windows
         {
             ProgressService = progressService;
         }
-        
+
         private void Awake() => 
             OnAwake();
 
