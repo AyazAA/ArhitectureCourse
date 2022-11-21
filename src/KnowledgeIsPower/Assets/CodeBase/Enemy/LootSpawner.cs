@@ -25,9 +25,9 @@ namespace CodeBase.Enemy
         private void OnDisable() => 
             _enemyDeath.Happened -= SpawnLoot;
 
-        private void SpawnLoot()
+        private async void SpawnLoot()
         {
-            LootPiece lootPiece = _factory.CreateLoot();
+            LootPiece lootPiece = await _factory.CreateLoot();
             lootPiece.transform.position = transform.position;
             Loot lootItem = GenerateLoot();
             lootPiece.Initialize(lootItem);
