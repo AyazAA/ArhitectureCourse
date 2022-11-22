@@ -883,6 +883,8 @@ PlayerSettings:
   vrEditorSettings: {}
   cloudServicesEnabled:
     Build: 1
+    Legacy Analytics: 1
+    Purchasing: 1
     UNet: 1
     Unity Ads: 1
   luminIcon:
