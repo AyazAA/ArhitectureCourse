@@ -2,6 +2,7 @@
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Ads;
+using CodeBase.Infrastructure.Services.IAP;
 using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.Randomizer;
@@ -54,11 +55,15 @@ namespace CodeBase.Infrastructure.States
             RegisterAssetProvider();
             _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
             
+            RegisterIAPService(new IAPProvider(),_services.Single<IPersistentProgressService>());
+
             _services.RegisterSingle<IUIFactory>(new UIFactory(
                 _services.Single<IAsset>(),
                 _services.Single<IStaticDataService>(),
                 _services.Single<IPersistentProgressService>(),
-                _services.Single<IAdsService>()));
+                _services.Single<IAdsService>(),
+                _services.Single<IIAPService>()
+                ));
             
             _services.RegisterSingle<IWindowService>(new WindowService(_services.Single<IUIFactory>()));
 
@@ -90,6 +95,12 @@ namespace CodeBase.Infrastructure.States
             var adsService = new AdsService();
             adsService.Initialize();
             _services.RegisterSingle<IAdsService>(adsService);
+        }
+        private void RegisterIAPService(IAPProvider iapProvider, IPersistentProgressService progressService)
+        {
+            IAPService iapService = new IAPService(iapProvider, progressService);
+            iapService.Initialize();
+            _services.RegisterSingle<IIAPService>(iapService);
         }
 
         private static IInputService InputService()
