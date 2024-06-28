@@ -3,6 +3,7 @@ using CodeBase.Infrastructure.Services.Ads;
 using CodeBase.Infrastructure.Services.IAP;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using TMPro;
+using Zenject;
 
 namespace CodeBase.UI.Windows.Shop
 {
@@ -12,6 +13,7 @@ namespace CodeBase.UI.Windows.Shop
         public RewardedAdItem RewardedAdItem;
         public ShopItemsContainer ShopItemsContainer;
 
+        [Inject]
         public void Construct(
             IAdsService adsService, 
             IPersistentProgressService progressService,

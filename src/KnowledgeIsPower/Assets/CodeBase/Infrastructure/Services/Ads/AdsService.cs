@@ -5,7 +5,7 @@ using Application = UnityEngine.Device.Application;
 
 namespace CodeBase.Infrastructure.Services.Ads
 {
-    public class AdsService : IAdsService, IUnityAdsListener
+    public class AdsService : IAdsService
     {
         public event Action RewardedVideoReady;
         
@@ -22,12 +22,13 @@ namespace CodeBase.Infrastructure.Services.Ads
         {
             SetGameId();
             
-            Advertisement.AddListener(this);
             Advertisement.Initialize(_gameId);
         }
 
-        public bool IsRewardedVideoReady() => 
-            Advertisement.IsReady(RewardedVideoPlacementId);
+        public bool IsRewardedVideoReady()
+        {
+            throw new NotImplementedException();
+        }
 
         public void ShowRewardedVideo(Action onVideoFinished)
         {

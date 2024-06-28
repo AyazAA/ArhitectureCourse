@@ -9,6 +9,7 @@ using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
 using CodeBase.UI.Windows.Shop;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.UI.Services.Factory
 {
@@ -22,6 +23,7 @@ namespace CodeBase.UI.Services.Factory
         private readonly IAdsService _adsService;
         private readonly IIAPService _iapService;
 
+        [Inject]
         public UIFactory(IAsset assets,
             IStaticDataService staticData,
             IPersistentProgressService persistentProgressService,

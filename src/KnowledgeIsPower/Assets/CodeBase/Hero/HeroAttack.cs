@@ -4,6 +4,7 @@ using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Hero
 {
@@ -18,14 +19,21 @@ namespace CodeBase.Hero
         private float _radius;
         private Stats _stats;
 
+        public void Constructor(IInputService inputService)
+        {
+            _input = inputService;
+        }
+
         private void Awake()
         {
-            _input = AllServices.Container.Single<IInputService>();
             _layerMask = 1 << LayerMask.NameToLayer("Hittable");
         }
 
         private void Update()
         {
+            if(_input == null)
+                return;
+            
             if (_input.IsAttackButtonUp() && !_animator.IsAttacking)
                 _animator.PlayAttack();
         }

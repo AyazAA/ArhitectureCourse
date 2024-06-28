@@ -1,4 +1,5 @@
 ﻿using CodeBase.UI.Services.Factory;
+using Zenject;
 
 namespace CodeBase.UI.Services.Windows
 {
@@ -6,6 +7,7 @@ namespace CodeBase.UI.Services.Windows
     {
         private readonly IUIFactory _uiFactory;
 
+        [Inject]
         public WindowService(IUIFactory uiFactory)
         {
             _uiFactory = uiFactory;

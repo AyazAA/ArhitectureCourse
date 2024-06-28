@@ -1,6 +1,7 @@
 ﻿using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.States;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Logic
 {
@@ -11,9 +12,12 @@ namespace CodeBase.Logic
         private IGameStateMachine _stateMachine;
         private bool _triggered;
 
-        private void Awake() => 
-            _stateMachine = AllServices.Container.Single<IGameStateMachine>();
-
+        [Inject]
+        public void Constructor(IGameStateMachine gameStateMachine)
+        {
+            _stateMachine = gameStateMachine;
+        }
+        
         private void OnTriggerEnter(Collider other)
         {
             if(_triggered)

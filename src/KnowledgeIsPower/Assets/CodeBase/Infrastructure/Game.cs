@@ -1,6 +1,7 @@
 ﻿using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
+using Zenject;
 
 namespace CodeBase.Infrastructure
 {
@@ -8,9 +9,14 @@ namespace CodeBase.Infrastructure
     {
         public GameStateMachine StateMachine;
 
-        public Game(ICoroutineRunner coroutineRunner, LoadingCurtain curtain)
+        public Game(IGameStateMachine gameStateMachine)
         {
-            StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), curtain, AllServices.Container);
+            StateMachine = (GameStateMachine)gameStateMachine;
+        }
+
+        public void InitializeStateMachine(ICoroutineRunner coroutineRunner, LoadingCurtain curtain)
+        {
+            StateMachine.SetStates(new SceneLoader(coroutineRunner), curtain);
         }
     }
 }

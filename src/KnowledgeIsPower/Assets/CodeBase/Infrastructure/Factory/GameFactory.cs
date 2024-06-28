@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeBase.Enemy;
+using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.Randomizer;
 using CodeBase.Logic;
@@ -12,6 +14,7 @@ using CodeBase.UI.Elements;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 namespace CodeBase.Infrastructure.Factory
 {
@@ -22,17 +25,21 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IRandomService _randomService;
         private readonly IPersistentProgressService _progressService;
         private readonly IWindowService _windowService;
+        private readonly IInputService _inputService;
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
         private GameObject HeroGameObject { get; set; }
 
-        public GameFactory(IAsset asset, IStaticDataService staticDataService, IRandomService randomService, IPersistentProgressService progressService, IWindowService windowService)
+        [Inject]
+        public GameFactory(IAsset asset, IStaticDataService staticDataService, IRandomService randomService, 
+            IPersistentProgressService progressService, IWindowService windowService, IInputService inputService)
         {
             _asset = asset;
             _staticDataService = staticDataService;
             _randomService = randomService;
             _progressService = progressService;
             _windowService = windowService;
+            _inputService = inputService;
         }
 
         public async Task WarmUp()
@@ -44,6 +51,8 @@ namespace CodeBase.Infrastructure.Factory
         public async Task<GameObject> CreateHero(Vector3 at)
         {
             HeroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
+            HeroGameObject.GetComponent<HeroMover>().Constructor(_inputService);
+            HeroGameObject.GetComponent<HeroAttack>().Constructor(_inputService);
             return HeroGameObject;
         }
 

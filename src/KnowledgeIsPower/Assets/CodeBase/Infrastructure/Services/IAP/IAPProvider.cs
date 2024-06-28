@@ -57,6 +57,11 @@ namespace CodeBase.Infrastructure.Services.IAP
         public void OnInitializeFailed(InitializationFailureReason error) =>
             Debug.Log($"UnityPurchasing OnInitializeFailed {error}");
 
+        public void OnInitializeFailed(InitializationFailureReason error, string message)
+        {
+            throw new NotImplementedException();
+        }
+
         public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
         {
             Debug.Log($"UnityPurchasing ProcessPurchase success {purchaseEvent.purchasedProduct.definition.id}");

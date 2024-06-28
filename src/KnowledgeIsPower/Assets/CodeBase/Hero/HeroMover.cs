@@ -4,6 +4,7 @@ using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace CodeBase.Hero
 {
@@ -15,9 +16,9 @@ namespace CodeBase.Hero
         private IInputService _inputService;
         private Camera _camera;
 
-        private void Awake()
+        public void Constructor(IInputService inputService)
         {
-            _inputService = AllServices.Container.Single<IInputService>();
+            _inputService = inputService;
         }
 
         private void Start()
@@ -27,6 +28,9 @@ namespace CodeBase.Hero
 
         private void Update()
         {
+            if(_inputService == null)
+                return;
+            
             _direction = Vector3.zero;
             if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
             {
